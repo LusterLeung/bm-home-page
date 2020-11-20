@@ -2,14 +2,16 @@
 /* eslint arrow-parens: 0 */
 import React from 'react';
 import { enquireScreen } from 'enquire-js';
-
+import scrollScreen from 'rc-scroll-anim/lib/ScrollScreen';
 import Banner0 from './Banner0';
 import Content0 from './Content0';
+import Content3 from './Content3';
 import Footer0 from './Footer0';
 
 import {
   Banner00DataSource,
   Content00DataSource,
+  Content30DataSource,
   Footer00DataSource,
 } from './data.source';
 import './less/antMotionStyle.less';
@@ -31,6 +33,10 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    /* 如果不是 dva 2.0 请使用以下代码
+    // 实现整屏滚动
+    scrollScreen.init({ location: ['Banner0_0', 'Content0_0', 'Content3_0', 'Footer0_0'] });
+    */
     // 适配手机屏幕;
     enquireScreen((b) => {
       this.setState({ isMobile: !!b });
@@ -42,6 +48,10 @@ export default class Home extends React.Component {
       setTimeout(() => {
         this.setState({
           show: true,
+        });
+        // 实现整屏滚动
+        scrollScreen.init({
+          location: ['Banner0_0', 'Content0_0', 'Content3_0', 'Footer0_0'],
         });
       }, 500);
     }
@@ -60,6 +70,12 @@ export default class Home extends React.Component {
         id="Content0_0"
         key="Content0_0"
         dataSource={Content00DataSource}
+        isMobile={this.state.isMobile}
+      />,
+      <Content3
+        id="Content3_0"
+        key="Content3_0"
+        dataSource={Content30DataSource}
         isMobile={this.state.isMobile}
       />,
       <Footer0
